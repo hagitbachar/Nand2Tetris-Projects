@@ -1,0 +1,20 @@
+hagitba,esthers
+
+===============================================================================
+hagit bachar, ID 208349746, hagit.bachar1@mail.huji.ac.il
+esther sevrinsky, ID 323433540, esther.sevrinsky@mail.huji.ac.il
+===============================================================================
+
+                           Project 10 - Compiler Part 1
+                          ------------------------------ 
+  
+
+Submitted Files
+---------------
+README - This file.
+
+JackTokenizer.py- parse the input file to tokens.
+CompilationEngine.py- use the tokens from the JackTokenizer, 
+and write them in the xml output file.
+JackAnalyzer.py- The main of the program. get the input from the user,
+create output file, and call the rellavent classes to compile the input file. 
