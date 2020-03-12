@@ -1,0 +1,21 @@
+hagitba,esthers
+
+===============================================================================
+hagit bachar, ID 208349746, hagit.bachar1@mail.huji.ac.il
+esther sevrinsky, ID 323433540, esther.sevrinsky@mail.huji.ac.il
+===============================================================================
+
+                           Project 9 - Game
+                           ----------------------- 
+  
+
+Submitted Files
+---------------
+README - This file.
+
+Main.jack - 
+Game.jack - 
+Person.jack - represant the person
+Point.jack - represant the points
+Lava.jack - represant the lava
+Random.jack - a random program that we used to make the points 
