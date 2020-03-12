@@ -1,0 +1,53 @@
+ 
+ class Random {
+     field int x;
+     
+     constructor Random new()
+     {
+	 let x = 1;
+	 return this;
+     }
+     
+     method int randomNum(int range) {
+	 var int randTotal;
+	 var int i;
+	 var int j;
+	 var int rand;
+	 
+	 let i = 0;
+	 let j = range/10;
+	 let randTotal = 0;
+	 
+	 while (i < j) {
+	     let randTotal = randTotal + randToTen();
+	     let i = i + 1;
+	 }
+	 
+	 let rand = randToTen();
+	 if (randTotal + rand < range) {
+	     let randTotal = randTotal + rand;
+	 }
+	 let x =  x + 1;
+	 if (randTotal = 0) {
+	     let randTotal = 1;
+	 }
+	 return randTotal;
+     }
+     
+     method int randToTen() {
+	 var int rand;
+	 var int mod;
+	 
+	 let rand = 7 * x;
+	 let mod = rand/11;
+	 let mod = mod * 11;
+	 let rand = rand - mod;
+	 
+	 return rand;
+     }
+     
+     method void setX(){
+	 let x = x + 1;
+	 return;
+     }
+ }

@@ -1,0 +1,171 @@
+
+/** Implements a graphical person. */
+class Person {
+    field int x, y;     // screen location of the person's top-left corner
+    field int size; 
+    
+    
+    /** Constructs a new person with a given location and size. */
+    constructor Person new() {
+	let x = Math.max(Memory.peek(0), Memory.peek(2779));
+	let y = 50;
+	let size = 20;
+	return this;
+    }
+    
+    /** Draw the person */
+    method void draw() {
+	var int stays;
+	var int leftovers;
+	
+	let stays = 511 - x;
+	let leftovers = size - stays;
+	
+	
+	if (leftovers < 0) {
+	    do Screen.setColor(true);
+	    do Screen.drawRectangle(x, y, x + size, y + size);
+	}
+	
+	if (leftovers > 0) {
+	    do Screen.setColor(true);
+	    do Screen.drawRectangle(x, y, x + stays, y + size);
+	    do Screen.drawRectangle(0, y, leftovers, y + size);
+	}
+	return;
+    }
+    
+    /** Moves the person up by 2 pixels. */
+    method void moveUp() {
+	var int stays;
+	var int leftovers;
+	
+	let stays = 511 - x;
+	let leftovers = size - stays;
+	if (leftovers < 0) {
+	    if (y > 1) {
+		do Screen.setColor(false);
+		do Screen.drawRectangle(x, (y + size) - 1, x + size, y + size);
+		let y = y - 2;
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x, y, x + size, y + 1);
+	    }
+	}
+	if (leftovers > 0) {
+	    if (y > 1) {
+		do Screen.setColor(false);
+		do Screen.drawRectangle(x, y, x + stays, y + size);
+		do Screen.drawRectangle(0, y, leftovers, y + size);
+		let y = y - 2;
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x, y, x + stays, y + size);
+		do Screen.drawRectangle(0, y, leftovers, y + size);
+	    }
+	}
+	return;
+    }
+    
+    /** Moves the person down by 2 pixels. */
+    method void moveDown() {
+	var int stays;
+	var int leftovers;
+	
+	let stays = 511 - x;
+	let leftovers = size - stays;
+	if (leftovers < 0) {
+	    if ((y + size) < 254) {
+		do Screen.setColor(false);
+		do Screen.drawRectangle(x, y, x + size, y + 1);
+		let y = y + 2;
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x, (y + size) - 1, x + size, y + size);
+	    }
+	}
+	if (leftovers > 0) {
+	    if ((y + size) < 254 ) {
+		do Screen.setColor(false);
+		do Screen.drawRectangle(x, y, x + stays, y + size);
+		do Screen.drawRectangle(0, y, leftovers, y + size);
+		let y = y + 2;
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x, y, x + stays, y + size);
+		do Screen.drawRectangle(0, y, leftovers, y + size);
+	    }
+	}
+	return;
+    }
+    
+    method void move(int rightOrLeft) {
+	var int stays;
+	var int leftovers;
+	
+	let stays = 511 - x;
+	let leftovers = size - stays;
+	if (leftovers < 0) {
+	    do Screen.setColor(false);
+	    do Screen.drawRectangle (x, y, x + size, y + size);
+	}
+	if (leftovers > 0) {
+	    do Screen.setColor(false);
+	    do Screen.drawRectangle(x, y, x + stays, y + size);
+	    do Screen.drawRectangle(0, y, leftovers, y + size);
+	}
+	
+	
+	let x = x + rightOrLeft;
+	let x = x + rightOrLeft;
+	let x = x + rightOrLeft;
+	let x = x + rightOrLeft;
+	
+	if (x > 511) {
+	    let x = 0;
+	}
+	if (x < 0) {
+	    let x = 511;
+	}
+	let stays = 511 - x;
+	let leftovers = size - stays;
+	
+	
+	if (leftovers < 0) {
+	    do Screen.setColor(true);
+	    do Screen.drawRectangle(x, y, x + size, y + size);
+	}
+	
+	if (leftovers > 0) {
+	    do Screen.setColor(true);
+	    do Screen.drawRectangle(x, y, x + stays, y + size);
+	    do Screen.drawRectangle(0, y, leftovers, y + size);
+	}
+	return;
+    }
+    
+    method void moveRight() {
+	do move(1);
+	return;
+    }
+    
+    method void moveLeft() {
+	do move(-1);
+	return;
+    }
+    
+    method int getX() {
+	return x;
+    }
+    
+    method int getY() {
+	return y;
+    }
+    
+    method int getSize() {
+	return size;
+    }
+    
+    /** Disposes this person. */
+    method void dispose() {
+	do Memory.deAlloc(this);
+	return;
+    }
+    
+}

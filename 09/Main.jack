@@ -1,0 +1,15 @@
+
+/** Initializes the game and starts running it. */
+class Main {
+    function void main() {
+		var Game game;
+		do Output.moveCursor(10,10);
+        let game = Game.new();
+		while (game.run()){
+			let game = Game.new();
+			do game.run();
+		}
+
+        return;
+    }
+}

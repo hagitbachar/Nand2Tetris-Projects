@@ -1,0 +1,107 @@
+/** Implements a graphical line of Lava. */
+class Lava {
+    field int x, y;
+    field int size;
+    field boolean topOrBottom;
+    field Random rand;
+
+    
+    constructor Lava new(int Ax, int Ay, int Asize, boolean top) {
+	let x = Ax;
+	let y = Ay;
+	let size = Asize;
+	let topOrBottom = top;
+	let rand = Random.new();
+	return this;
+    }
+    
+    method void drawTriangle() {
+	 var int i;
+	 let i = 0;
+	 while (i < size) {
+		do Screen.setColor(~topOrBottom);
+		do Screen.drawLine(x, y + i, x + i, y + i);
+		do Screen.setColor(topOrBottom);
+		do Screen.drawLine(x + i, y + i, x + size, y + i);
+		let i = i + 1;
+	    }
+	return;
+    }
+    
+    method void drawLava() {
+	var int j;
+	var int numTriangles;
+	
+	let numTriangles = 512/size;
+	let j = 0;
+	while (j < numTriangles) {
+	    do drawTriangle();
+	    let x = x + size;
+	    let j = j + 1;
+	}
+	return;
+    }
+    
+    method void initiateShard() {
+	var int pointX;
+	let y = 0;
+	let pointX = rand.randomNum(512/size) - 1;
+	let pointX = pointX*size;
+	let x = pointX;
+	do drawTriangle();
+	return;
+    }
+    
+    method void moveDown() {
+	var int max;
+	let max = 255 - size;
+	let max = max - size;
+	let max = max - 3;
+	do Screen.setColor(false);
+	do Screen.drawRectangle(x, y, x + size, y + size);
+	if (y < max) {
+	    let y = y + 3;
+	    do drawTriangle();
+	}
+	if (y > max) {
+	    do Screen.setColor(false);
+	    do Screen.drawRectangle(x, y, x + size, y + size);
+	    let y = 0;
+	    do drawTriangle();
+	    do initiateShard();
+	}
+	if (y = max) {
+	    do Screen.setColor(false);
+	    do Screen.drawRectangle(x, y, x + size, y + size);
+	    let y = 0;
+	    do drawTriangle();
+	    do initiateShard();
+	}
+	return;
+    }
+	
+    method void updateRand(){
+	do rand.setX();
+	return;
+    }
+    
+    method int getX() {
+	return x;
+    }
+    
+    method int getY() {
+	return y;
+    }
+    
+    method int getSize() {
+	return size;
+    }
+    
+    
+    /** Disposes this point. */
+    method void dispose() {
+	do Memory.deAlloc(this);
+	return;
+    }
+    
+}

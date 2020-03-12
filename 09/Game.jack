@@ -1,0 +1,280 @@
+
+
+/**
+ * Implements the ? game.
+ * add more information..........
+ */
+
+class Game {
+    field Game game; 
+    field Person person;
+    field Lava topLava;
+    field Lava bottomLava;
+    field Array points; 
+    //field Point point1;
+    //field Point point2;
+    field Lava shard;
+    
+    
+    /** Constructs a new Game. */
+    constructor Game new() {
+	let person = Person.new();
+	let points = Array.new(2);
+	let points[0] = Point.new(5, 100);
+	let points[1] = Point.new(506, 150);
+	return this;
+    }
+    
+    /** print the score. */
+    method void printScore(int x, int score) {
+	do Output.moveCursor(x, 6);
+	do Output.printInt(score);
+	return;
+    }
+    
+	/** Check if the person hits the points. */
+    method boolean checkHitPoint(Point point) {
+	var int pointTop;
+	var int pointBottom;
+	var int pointLeft;
+	var int pointRight;
+	var int personBottom;
+	var int personRight;
+	
+	let pointTop = point.getY() - point.getRadius();
+	let pointBottom = point.getY() + point.getRadius();
+	let pointLeft = point.getX() - point.getRadius();
+	let pointRight = point.getX() + point.getRadius();
+	let personBottom = person.getY() + person.getSize();
+	let personRight = person.getX() + person.getSize();
+	
+	if (pointLeft < personRight) { 
+	    if (person.getX() < pointRight) {
+		if (pointTop < personBottom) { 
+		    if (person.getY() < pointBottom) {
+			return true;
+		    }
+		}
+	    }
+	}
+	return false;
+    }
+    
+    method boolean checkHitShard(){
+	var int personBottom;
+	var int personRight;
+	var int shardBottom;
+	var int shardRight;
+	
+	let personBottom = person.getY() + person.getSize();
+	let personRight = person.getX() + person.getSize();
+	let shardBottom = shard.getY() + shard.getSize();
+	let shardRight = shard.getX() + shard.getSize();
+	
+	if (shard.getX() < personRight) { 
+	    if (person.getX() < shardRight) {
+		if (shard.getY() < personBottom) { 
+		    if (person.getY() < shardBottom) {
+			return true;
+		    }
+		}
+	    }
+	}
+	return false;
+	
+    }
+	
+	/** Check if the person hits the lava. */
+    method boolean HitLava() {
+	if (person.getY() < topLava.getSize()) {
+	    return true;
+	}
+	if (person.getY() + person.getSize() > bottomLava.getY()) {
+	    return true;
+	}
+	return false;
+    }
+
+    
+    method void printOpening() {
+	do Output.printString("Push spacebar to go up, let go to go down.");
+	do Output.moveCursor(11, 5);
+	do Output.printString("Don't touch the spikes and try to collect the points.");
+	do Output.moveCursor(12, 25);
+	do Output.printString("Push q to quit.");
+	return;
+    }
+    
+    method void printEnding(int score) {
+	do Output.moveCursor(11, 15);
+	do Output.printString("Good game! your score was ");
+	do Output.printInt(score);
+	do Output.moveCursor(14, 20);
+	do stringDance();
+	return;
+    }
+    
+    method void stringDance(){
+	var String string;
+	var int i;
+	var char letter;
+	let i = 0;
+	let string = String.new(20);
+	let string = "THE CAKE IS A LIE";
+	do Output.printString(string);
+	do Sys.wait(100);
+	let i = 0;
+	while(i < 17){
+	    let letter = string.charAt(i);
+	    do string.setCharAt(i, "O");
+	    do Output.moveCursor(14, 20);
+	    do Output.printString(string);
+	    do Sys.wait(100);
+	    do string.setCharAt(i, letter);
+	    do Output.moveCursor(14, 20);
+	    do Output.printString(string);
+	    let i = i + 1;
+	}
+	return;
+    }
+	
+	
+    /** Run this game. */
+    method void run() {
+	var int j;
+	var int i;
+	var int score;
+	var char key;
+	var char lastKey;
+	var int x;
+	var int savedX;
+	var int savedY;
+	var boolean exit;
+	var Point point;
+	//var boolean newGame;
+	let exit = false;
+	//let newGame = false;
+	
+	let score = 0;  
+	let key = Keyboard.keyPressed();
+	let j = 0;
+	let i = 0;
+	
+	do printOpening();
+	
+	while (key = 0) {
+	    let key = Keyboard.keyPressed();
+	}
+	
+	do Screen.clearScreen();
+	let topLava = Lava.new(0, 0, 20, true);
+	let bottomLava = Lava.new(0, 235, 20, false);
+	let shard = Lava.new(0, 0, 20, true);
+	do topLava.drawLava();
+	do bottomLava.drawLava();
+	let x = bottomLava.getY() - 30;
+	let x = x/10;
+	do Output.moveCursor(x, 0);
+	do Output.printString("SCORE:");
+	do printScore(x, score);
+	let point = points[0];
+	do point.draw();
+	let point = points[1];
+	do point.draw();
+	do shard.initiateShard();
+	
+	while (~exit) {
+	    do Sys.wait(30);	
+		
+	    if (key = 81)  { let exit = true; }   // 'q' key
+		
+	    if (key < 130) {
+		let key = lastKey;
+	    }
+	    if (key > 133) {
+		let key = lastKey;
+	    }
+	    if (key = 131){
+		do shard.updateRand();
+		do person.moveUp();
+		let lastKey = 131;
+	    }
+	    if (key = 130){                        
+		do person.moveLeft();
+		let lastKey = 130;
+	    }
+	    if (key = 132){                        
+		do person.moveRight();
+		let lastKey = 132;
+	    }
+ 	    if (key = 133){                        
+ 		do person.moveDown();
+		let lastKey = 133;
+ 	    }
+ 	    let point = points[0];
+	    do point.moveRight();
+	    if (checkHitPoint(point)) {
+		let score = score + 1;
+		do point.resetPoint();
+		do printScore(x, score);
+	    }
+	    let point = points[1];
+	    do point.moveLeft();
+	    if (checkHitPoint(point)) {
+		let score = score + 1;
+		do point.resetPoint();
+		do printScore(x, score);
+	    }
+	    if (HitLava()) {
+		    //let newGame = true;
+			//do Output.printString("Game Over, for another game press 'y'.");
+		let exit = true;
+	    }
+	    if (checkHitShard()) {
+		let exit = true;
+	    }
+	    let savedX = shard.getX();
+	    let savedY = shard.getY();
+	    do shard.moveDown();
+	    if (savedX < 60) {
+		if (savedY > x) {
+		    do Output.moveCursor(x, 0);
+		    do Output.printString("SCORE:");
+		    do printScore(x, score);
+		}
+	    }
+	    let key = Keyboard.keyPressed();
+	    do person.draw();
+	    		
+		/**if (newGame){
+			if (key = 89){
+				return true;  // i change back the return type to void
+			}else {
+			let exit = true;
+		    }
+		} */
+	}
+	
+	do Screen.clearScreen();
+	do printEnding(score);
+	
+	
+	//do topLava.dispose();
+	//do bottomLava.dispose();
+	//do points[0].dispose();
+	//do points[1].dispose();
+	//do person.dispose();
+	//do game.dispose();
+	
+	return;
+    }
+    
+    
+    /** Disposes this game. */
+    method void dispose() {
+	do game.dispose();
+	do Memory.deAlloc(this);
+	return;
+    }
+    
+}

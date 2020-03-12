@@ -1,0 +1,90 @@
+
+/** Implements a graphical point. */
+class Point {
+    field int x, y;     // screen location of the point's top-left corner
+    field int radius; 
+    field char direction;
+    field int origX;
+    
+    
+    /** Constructs a new point with a given location and size. */
+    constructor Point new(int Ax, int Ay) {
+	let x = Ax;
+	let y = Ay;
+	let radius = 5;   
+	let origX = Ax;
+	return this;
+    }
+    
+    
+    /** Draw the point */
+    method void draw() {
+	do Screen.setColor(true);
+	do Screen.drawCircle(x, y, radius);
+	return;
+    }
+    
+    /** Moves the point right by 2 pixels. */
+    method void moveRight() {
+	if ((x + radius) < 510) {
+	    do Screen.setColor(false);
+	    do Screen.drawCircle(x, y, radius);
+	    let x = x + 2;
+	    do Screen.setColor(true);
+	    do Screen.drawCircle(x, y, radius);
+	}
+	else {
+	    do resetPoint();
+	}
+	return;
+    }
+    
+    /** Moves the point left by 2 pixels. */
+    method void moveLeft() {
+	if (x > (radius + 1)) {           
+	    do Screen.setColor(false);
+	    do Screen.drawCircle(x, y, radius);
+	    let x = x - 2;
+	    do Screen.setColor(true);
+	    do Screen.drawCircle(x, y, radius);
+	} 
+	else{
+	    do resetPoint();
+	}
+	return;
+    }
+    
+    method void resetPoint() {
+	do Screen.setColor(false);
+	do Screen.drawCircle(x, y, radius);
+	let x = origX;
+	let y = 275 - y;
+	return;
+    }
+    
+    method int getX() {
+	return x;
+    }
+    
+    method int getY() {
+	return y;
+    }
+    
+    method int getRadius() {
+	return radius;
+    }
+    
+    method void setRadius(int newRadius) {
+	let radius = newRadius;
+	return;
+    }
+    
+    
+    /** Disposes this point. */
+    method void dispose() {
+	do Memory.deAlloc(this);
+	return;
+    }
+    
+}
+
