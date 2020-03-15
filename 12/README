@@ -1,0 +1,30 @@
+hagitba,esthers
+
+===============================================================================
+hagit bachar, ID 208349746, hagit.bachar1@mail.huji.ac.il
+esther sevrinsky, ID 323433540, esther.sevrinsky@mail.huji.ac.il
+===============================================================================
+
+                           Project 12 - OS
+                          ------------------------------ 
+  
+
+Submitted Files
+---------------
+README - This file.
+
+Array.jack - A class that represents an array.
+
+Keyboard.jack - A class for handling user input from the keyboard.
+
+Memory.jack - A class that allows direct access to the computer's main memory (RAM), and allocation and recycling of memory blocks.
+
+Math.jack - A class of commonly used mathematical functions.
+
+Output.jack - A class for writing text on the screen.
+
+Screen.jack - A class for displaying graphics on the screen.
+
+String.jack - A class for represents character strings.
+
+Sys.jack - A class that supports various program execution services.
